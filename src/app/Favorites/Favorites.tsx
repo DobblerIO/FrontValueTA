@@ -7,8 +7,7 @@ export const Favorites:FC = () => {
     const { favorites } = useFavoritesStore();
 
     return (
-        <div>
-            <JokeList jokes={favorites} />
-        </div>
-    )
+        <JokeList jokes={favorites} />
+    );
+    
 }
