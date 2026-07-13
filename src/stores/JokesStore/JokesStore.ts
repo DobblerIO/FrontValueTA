@@ -32,7 +32,13 @@ export class JokesStore {
     private async refetch() {
         const newJoke = await getJoke();
 
-        this.data.shift();
+        // remove oldest joke
+        const [oldestJoke] = this.data.toSorted((a, b) => {
+            return new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime();
+        });
+        this.data.splice(this.data.indexOf(oldestJoke), 1);
+
+        // Push new joke
         this.data.push(newJoke);
 
         this.eventEmitter.emit('change');
