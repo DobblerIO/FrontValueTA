@@ -3,16 +3,16 @@ import { JokesStore } from "./JokesStore"
 
 export const useJokesStore = () => {
 
-    const { current: store } = useRef(new JokesStore())
-    const [data, setData] = useState(store.getJokes());
+    const storeRef = useRef(new JokesStore())
+    const [data, setData] = useState(storeRef.current.getJokes());
 
     useEffect(() => {
-        const updateData = () => setData(store.getJokes());
+        const updateData = () => setData(storeRef.current.getJokes());
 
-        store.onChange(updateData);
+        storeRef.current.onChange(updateData);
 
         return () => {
-            store.offChange(updateData);
+            storeRef.current.offChange(updateData);
         }
     }, []);
 
