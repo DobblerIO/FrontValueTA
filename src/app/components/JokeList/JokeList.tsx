@@ -3,9 +3,9 @@ import { HeartIcon } from 'lucide-react';
 import { clsx } from 'clsx';
 
 import { useFavoritesStore } from '../../../stores/FavoritesStore';
+import type { ChuckNorrisJokeData } from '../../../api';
 
 import styles from './JokeList.module.css';
-import type { ChuckNorrisJokeData } from '../../../api';
 
 export interface JokeListProps {
     jokes: ChuckNorrisJokeData[];
@@ -24,7 +24,7 @@ export const JokeList:FC<JokeListProps> = (props) => {
     }
 
     if (!jokes.length) {
-        return (<div>Loading...</div>);
+        return (<div>No results...</div>);
     }
 
     return (
@@ -33,11 +33,13 @@ export const JokeList:FC<JokeListProps> = (props) => {
             {jokes.map(joke => (
                 <div
                     key={joke.id}
+                    data-testid="joke-list-item"
                     className={styles['joke-list-item']}
                 >
                     <span>{ joke.value }</span>
 
                     <div
+                        data-testid="favorite-control"
                         className={clsx(
                             styles['joke-list-item__favorite-control'],
                             {[styles['joke-list-item__favorite-control--checked']]: favorites.some(fav => fav.id === joke.id)}
