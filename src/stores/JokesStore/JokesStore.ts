@@ -36,7 +36,7 @@ export class JokesStore {
     private async runRefetchInterval() {
         window.setInterval(() => {
             this.refetch();
-        }, 5000);
+        }, 5000 * 3);
     }
 
     public onChange(listener) {
