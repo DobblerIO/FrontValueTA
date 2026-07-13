@@ -11,14 +11,17 @@ export class JokesStore {
     constructor() {
         this.data = [];
         this.eventEmitter = new EventEmitter();
-
-        this.fetchInitial().then(() => {
-            this.runRefetchInterval()
-        });
+        
+        this.runFetch();
     }
 
     public getJokes() {
         return [...this.data];
+    }
+
+    private async runFetch() {
+        await this.fetchInitial();
+        this.runRefetchInterval();
     }
 
     private async fetchInitial() {
@@ -35,10 +38,15 @@ export class JokesStore {
         this.eventEmitter.emit('change');
     }
 
-    private async runRefetchInterval() {
-        window.setInterval(() => {
-            this.refetch();
-        }, 5000 * 3);
+    private runRefetchInterval() {
+        const intervalId = window.setInterval(() => {
+            try {
+                this.refetch();
+            } catch(error) {
+                window.clearInterval(intervalId);
+                throw error;
+            }
+        }, 5000);
     }
 
     public onChange(listener: JokesStoreListener) {

@@ -6,20 +6,33 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-    globalIgnores(['dist']),
+    globalIgnores(['dist', 'playwright.config.ts']),
     {
-        files: ['**/*.{ts,tsx}'],
+        files: ['src/**/*.{ts,tsx}'],
         extends: [
             js.configs.recommended,
             tseslint.configs.recommended,
             reactHooks.configs.flat.recommended,
             reactRefresh.configs.vite,
+
+            tseslint.configs.recommendedTypeChecked,
+            // tseslint.configs.strictTypeChecked,
+            // tseslint.configs.stylisticTypeChecked,
         ],
         languageOptions: {
             globals: globals.browser,
+            parserOptions: {
+                project: ['./tsconfig.node.json', './tsconfig.app.json'],
+                tsconfigRootDir: import.meta.dirname,
+            },
         },
 
         rules: {
+            "@typescript-eslint/no-unsafe-assignment": 0,
+            "@typescript-eslint/no-unsafe-return": 0,
+            "@typescript-eslint/no-floating-promises": 0,
+            "@typescript-eslint/no-confusing-void-expression": 0,
+
             "react-hooks/exhaustive-deps": 0,
             "react-hooks/refs": 0,
         }
