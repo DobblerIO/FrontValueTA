@@ -1,5 +1,6 @@
 
-type ListenerFn = (...args: unknown[]) => void;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ListenerFn = (...args: any[]) => void;
 
 export class EventEmitter<EventType extends string, Listener extends ListenerFn> {
 
@@ -8,6 +9,10 @@ export class EventEmitter<EventType extends string, Listener extends ListenerFn>
     on(event: EventType, listener: Listener) {
         this.listeners[event] ??= [];
         this.listeners[event].push(listener);
+    }
+
+    off(event: EventType, listener: Listener) {
+        this.listeners[event] = this.listeners[event].filter(i => i !== listener);
     }
 
     emit(event: EventType, ...args: Parameters<Listener>) {

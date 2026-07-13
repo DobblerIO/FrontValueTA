@@ -1,4 +1,5 @@
 import { type ChuckNorrisJokeData } from "../../api";
+import { Dialoguer } from "../../Utility";
 import { EventEmitter } from "../EventEmitter";
 
 const LOCAL_STORAGE_KEY = 'FVTA_Favorites';
@@ -27,6 +28,13 @@ export class FavoritesStore {
     }
 
     public static addFavorite(joke: ChuckNorrisJokeData) {
+        if (this.data.length >= 10) {
+            Dialoguer.open({
+                text: 'Limit Reached. You can only favorite up to 10 jokes.',
+            });
+            return;
+        }
+
         this.data.push(joke);
         this.writeToLocalStorage();
         this.eventEmitter.emit('change');
@@ -43,7 +51,7 @@ export class FavoritesStore {
     }
 
     public static offChange(listener: FavoritesStoreListener) {
-        this.eventEmitter.on('change', listener);
+        this.eventEmitter.off('change', listener);
     }
 
 }

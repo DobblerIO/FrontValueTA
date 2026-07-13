@@ -4,6 +4,7 @@ import styles from './AppRoot.module.css';
 import { Favorites } from './Favorites';
 import { RandomJokes } from './RandomJokes';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { DialogueContainer } from '../Utility';
 
 export const AppRoot: FC = () => {
 
@@ -11,6 +12,7 @@ export const AppRoot: FC = () => {
 
     return (
         <ErrorBoundary fallback={"We've run into a fatal error..."}>
+
             <div className={styles.container} >
 
                 <div className={styles.nav} >
@@ -33,6 +35,9 @@ export const AppRoot: FC = () => {
                 {activeRoute === 'favorites' && <Favorites />}
 
             </div>
+
+            <DialogueContainer />
+            
         </ErrorBoundary>
     );
 }
