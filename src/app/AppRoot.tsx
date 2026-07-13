@@ -4,6 +4,8 @@ import styles from './AppRoot.module.css';
 import { Favorites } from './Favorites';
 import { RandomJokes } from './RandomJokes';
 
+console.log('Hello workflow');
+
 export const AppRoot: FC = () => {
 
     const [activeRoute, setActiveRoute] = useState<'jokes'|'favorites'>('jokes')
