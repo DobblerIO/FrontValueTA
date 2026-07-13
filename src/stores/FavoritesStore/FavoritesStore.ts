@@ -3,10 +3,12 @@ import { EventEmitter } from "../EventEmitter";
 
 const LOCAL_STORAGE_KEY = 'FVTA_Favorites';
 
+type FavoritesStoreListener = () => void;
+
 export class FavoritesStore {
 
     private static data: ChuckNorrisJokeData[] = this.readFromLocalStorage();
-    private static eventEmitter: EventEmitter = new EventEmitter();
+    private static eventEmitter: EventEmitter<'change', FavoritesStoreListener> = new EventEmitter();
 
     public static getFavorites() {
         return [...this.data];
@@ -14,7 +16,10 @@ export class FavoritesStore {
 
     private static readFromLocalStorage(): ChuckNorrisJokeData[] {
         const localStorageData = window.localStorage.getItem(LOCAL_STORAGE_KEY);
-        return JSON.parse(localStorageData) || [];
+        if (!localStorageData) {
+            return [];
+        }
+        return JSON.parse(localStorageData);
     }
 
     private static writeToLocalStorage() {
@@ -33,11 +38,11 @@ export class FavoritesStore {
         this.eventEmitter.emit('change');
     }
 
-    public static onChange(listener) {
+    public static onChange(listener: FavoritesStoreListener) {
         this.eventEmitter.on('change', listener);
     }
 
-    public static offChange(listener) {
+    public static offChange(listener: FavoritesStoreListener) {
         this.eventEmitter.on('change', listener);
     }
 

@@ -15,7 +15,7 @@ export const JokeList:FC<JokeListProps> = (props) => {
     const { jokes } = props;
     const { favorites, addFavorite, removeFavorite } = useFavoritesStore();
 
-    const handleFavoriteClick = (joke) => {
+    const handleFavoriteClick = (joke: ChuckNorrisJokeData) => {
         if (favorites.some(fav => fav.id === joke.id)) {
             removeFavorite(joke);
             return;

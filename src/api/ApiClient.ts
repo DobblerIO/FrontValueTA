@@ -15,7 +15,8 @@ export class ApiClient {
             return json;
 
         } catch (error) {
-            console.error(error.message);
+            console.error((error as Error).message);
+            throw error;
         }
 
     }

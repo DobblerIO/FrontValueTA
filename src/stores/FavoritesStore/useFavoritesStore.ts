@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { FavoritesStore } from "./FavoritesStore"
+import type { ChuckNorrisJokeData } from "../../api";
 
 export const useFavoritesStore = () => {
 
@@ -17,7 +18,7 @@ export const useFavoritesStore = () => {
 
     return {
         favorites: data,
-        addFavorite: (joke) => FavoritesStore.addFavorite(joke),
-        removeFavorite: (joke) => FavoritesStore.removeFavorite(joke),
+        addFavorite: (joke: ChuckNorrisJokeData) => FavoritesStore.addFavorite(joke),
+        removeFavorite: (joke: ChuckNorrisJokeData) => FavoritesStore.removeFavorite(joke),
     };
 }

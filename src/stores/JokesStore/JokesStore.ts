@@ -1,10 +1,12 @@
 import { getJoke, getJokes, type ChuckNorrisJokeData } from "../../api";
 import { EventEmitter } from "../EventEmitter";
 
+type JokesStoreListener = () => void;
+
 export class JokesStore {
 
     private data: ChuckNorrisJokeData[];
-    private eventEmitter: EventEmitter;
+    private eventEmitter: EventEmitter<'change', JokesStoreListener>;
 
     constructor() {
         this.data = [];
@@ -39,11 +41,11 @@ export class JokesStore {
         }, 5000 * 3);
     }
 
-    public onChange(listener) {
+    public onChange(listener: JokesStoreListener) {
         this.eventEmitter.on('change', listener);
     }
 
-    public offChange(listener) {
+    public offChange(listener: JokesStoreListener) {
         this.eventEmitter.on('change', listener);
     }
 

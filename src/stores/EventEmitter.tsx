@@ -1,13 +1,16 @@
-export class EventEmitter {
 
-    private listeners = {};
+type ListenerFn = (...args: unknown[]) => void;
 
-    on(event, listener) {
+export class EventEmitter<EventType extends string, Listener extends ListenerFn> {
+
+    private listeners: Record<EventType, Listener[]> = {} as Record<EventType, Listener[]>;
+
+    on(event: EventType, listener: Listener) {
         this.listeners[event] ??= [];
         this.listeners[event].push(listener);
     }
 
-    emit(event, ...args) {
+    emit(event: EventType, ...args: Parameters<Listener>) {
         if (!this.listeners[event]) {
             return;
         }
