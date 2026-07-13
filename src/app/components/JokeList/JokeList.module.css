@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+}
+
+.joke-list-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    padding: 6px 12px;
+    border-top: 1px solid #c3c3c3;
+    font-size: 16px;
+    color: #555;
+}
+
+.joke-list-item__favorite-control {
+    color: #b2b2b2;
+    cursor: pointer
+}
+.joke-list-item__favorite-control:hover {
+    color: #888;
+}
+
+.joke-list-item__favorite-control--checked {
+    color: red;
+    fill: red;
+    stroke: red;
+}
