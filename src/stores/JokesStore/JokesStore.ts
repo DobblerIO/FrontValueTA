@@ -54,7 +54,7 @@ export class JokesStore {
     }
 
     public offChange(listener: JokesStoreListener) {
-        this.eventEmitter.on('change', listener);
+        this.eventEmitter.off('change', listener);
     }
 
 }

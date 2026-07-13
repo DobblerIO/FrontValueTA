@@ -15,11 +15,13 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
         this.state = { hasError: false };
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     static getDerivedStateFromError(_error: Error) {
         // Update state so the next render will show the fallback UI.
         return { hasError: true };
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     componentDidCatch(error: Error, info: any) {
         console.error(error);
         console.error(info);
